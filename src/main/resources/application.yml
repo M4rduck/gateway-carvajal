@@ -30,6 +30,7 @@ spring:
           response-timeout: 600000
           connect-timeout: 600000
         filters:
+        - JwtAuthenticationFilter
         - RewritePath=/api/api-auth/(?<path>.*), /$\{path}
 server:
   tomcat:
