@@ -1,0 +1,40 @@
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway-carvajal
+    jwtSecret: 92053d0d844cd68406a4914258c78da672127450f09e9d9ffb443c369412ac2e
+    jwtExpirationInMs: 3600000
+  cloud:
+    consul:
+      host: ${CONSUL_URL:localhost}
+      port: 8500
+      discovery:
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${server.port}}}
+        prefer-ip-address: true
+        health-check-timeout: 10s
+        health-check-critical-timeout: 1m
+        heartbeat:
+          enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: auth-carvajal-microservice
+        uri:
+          lb://auth-carvajal-microservice
+        predicates:
+        - Path=/api/api-auth/**
+        metadata:
+          response-timeout: 600000
+          connect-timeout: 600000
+        filters:
+        - RewritePath=/api/api-auth/(?<path>.*), /$\{path}
+server:
+  tomcat:
+    connection-timeout: 1200
+  port: 9400
+  error:
+    whitelabel:
+      enabled: true

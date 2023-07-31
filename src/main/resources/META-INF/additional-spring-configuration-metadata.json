@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.application.jwtSecret",
+    "type": "java.lang.String",
+    "description": "Secret for Jwt (256 bits)"
+  },
+  {
+    "name": "spring.application.jwtExpirationInMs",
+    "type": "java.lang.String",
+    "description": "Expiration time token in milliseconds"
+  }
+]}
