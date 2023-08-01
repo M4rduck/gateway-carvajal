@@ -16,7 +16,21 @@ spring:
         health-check-critical-timeout: 1m
         heartbeat:
           enabled: true
+        catalog-services-watch-delay: 5000
+        catalog-services-watch-timeout: 7
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders:
+             "*"
+            allowedMethods:
+             - GET
+             - POST
+             - DELETE
+             - PUT
+             - OPTIONS 
       discovery:
         locator:
           enabled: true
@@ -30,8 +44,8 @@ spring:
           response-timeout: 600000
           connect-timeout: 600000
         filters:
-        - JwtAuthenticationFilter
-        - RewritePath=/api/api-auth/(?<path>.*), /$\{path}
+         - JwtAuthenticationFilter
+         - RewritePath=/api/api-auth/(?<path>.*), /$\{path}
 server:
   tomcat:
     connection-timeout: 1200

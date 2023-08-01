@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RouterValidator {
 	
-	public static final List<String> openApiEndpoints = List.of("/api/api-auth/public/user/forgot-password");
+	public static final List<String> openApiEndpoints = List.of("/api/api-auth/auth/forgot-password", "/api/api-auth/auth/register");
 
 	public static final Predicate<ServerHttpRequest> isSecured = request -> openApiEndpoints.stream().noneMatch(uri -> request.getURI().getPath().contains(uri));
 }
